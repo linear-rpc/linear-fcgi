@@ -1,0 +1,26 @@
+# backup
+*~
+
+# autotools
+Makefile
+Makefile.in
+aclocal.m4
+config.*
+configure
+depcomp
+install-sh
+missing
+stamp-h1
+autom4te.cache/
+ar-lib
+.deps/
+m4/
+
+# objects
+*.la
+*.a
+*.o
+
+# apps
+app/linear_fcgi
+src/uuid/samples/uuidgen

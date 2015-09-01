@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ x`uname` = x"Darwin" ]; then
+    LIBTOOLIZE="glibtoolize --force --copy"
+else
+    LIBTOOLIZE="libtoolize --force --copy"
+fi
+
+# break on error
+set -ex
+
+# libuv
+(cd deps/libuv; sh ./autogen.sh >/dev/null 2>&1)
+# mod_websocket
+(cd deps/mod_websocket; sh ./bootstrap >/dev/null 2>&1)
+# mod_websocket/config_parser
+(cd deps/mod_websocket/supplement/config_parser; sh ./bootstrap >/dev/null 2>&1)
+
+# linear-cgi
+$LIBTOOLIZE >/dev/null 2>&1
+aclocal -I m4
+autoheader
+automake --foreign --add-missing --copy
+autoconf
+

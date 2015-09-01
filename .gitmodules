@@ -1,0 +1,8 @@
+[submodule "deps/libuv"]
+	path = deps/libuv
+	url = https://github.com/libuv/libuv
+	ignore = dirty
+[submodule "deps/mod_websocket"]
+	path = deps/mod_websocket
+	url = https://github.com/nori0428/mod_websocket
+	ignore = dirty
