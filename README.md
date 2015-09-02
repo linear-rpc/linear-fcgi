@@ -2,7 +2,6 @@
 
 ## Overview
 
-a FastCGI application that converts ajax into TCP.  
 This application enable to connect and forward messages to a msgpack-rpc(TCP) server from IE etc. that is unable to use WebSocket protocol.
 
 ### Notice
