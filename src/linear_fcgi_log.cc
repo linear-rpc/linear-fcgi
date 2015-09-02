@@ -120,7 +120,25 @@ std::string Log::GetDateTime() {
   struct timeval now;
   struct tm* ret = NULL;
   if (gettimeofday(&now, 0) == 0) {
+#if __APPLE__
+    // use gmtime_r instead of localtime_r on MAC OS X.
+    // TODO: does localtime_r's BUG?
+    /*
+      Program received signal EXC_BAD_ACCESS, Could not access memory.
+      Reason: KERN_INVALID_ADDRESS at address: 0x0000000000000003
+      [Switching to process 51298 thread 0x1b03]
+      0x00007fff8687da11 in __findenv ()
+      (gdb) bt
+      #0  0x00007fff8687da11 in __findenv ()
+      #1  0x00007fff8687d9be in getenv ()
+      #2  0x00007fff868bfbf5 in _st_tzset_basic ()
+      #3  0x00007fff868c9d64 in localtime_r ()
+      #4  0x0000000100005686 in linear::Log::getDateTime (this=0x100044420)
+    */
+    ret = gmtime_r(&now.tv_sec, &ts);
+#else
     ret = localtime_r(&now.tv_sec, &ts);
+#endif
   }
   if (ret == NULL) {
     snprintf(datetime_str, sizeof(datetime_str), "ERR: fail to get date");
